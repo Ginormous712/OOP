@@ -16,7 +16,8 @@ public class Main {
         //tourManager.sortTourPackagesByTransportType();
         //tourManager.sortTourPackagesByMealsType();
 
-        tourManager.displayTourPackages();
+        //tourManager.displayTourPackages();
+        //TourAgency tourAgency = new TourAgency(tourManager);
 
     }
 }
