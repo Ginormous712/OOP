@@ -1,4 +1,7 @@
+package ui;
+
 import tour.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -18,6 +21,7 @@ public class Main {
 
         //tourManager.displayTourPackages();
         //TourAgency tourAgency = new TourAgency(tourManager);
-
+        ConsoleUI consoleUI = new ConsoleUI(10);
+        consoleUI.start();
     }
 }
