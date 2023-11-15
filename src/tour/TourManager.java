@@ -17,6 +17,15 @@ public class TourManager {
         return tourPackages;
     }
 
+    public TourPackage getTourPackageById(int packageId) {
+        for (TourPackage tourPackage : tourPackages) {
+            if (tourPackage.getId() == packageId) {
+                return tourPackage;
+            }
+        }
+        return null;
+    }
+
     public void displayTourPackages() {
         for (TourPackage tourPackage : tourPackages) {
             System.out.println(tourPackage);
@@ -91,8 +100,4 @@ public class TourManager {
     public void sortTourPackagesByMealsType() {
         Collections.sort(tourPackages, new MealTypeComparator());
     }
-
-
-
-
 }

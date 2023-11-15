@@ -1,7 +1,5 @@
 package tour;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ClientGenerator {
@@ -9,20 +7,14 @@ public class ClientGenerator {
     private static final String[] LAST_NAMES = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
     private static final String[] EMAIL_DOMAINS = {"gmail.com", "yahoo.com", "hotmail.com", "outlook.com"};
 
-    public static List<Client> generateClients(int numberOfClients) {
-        List<Client> clients = new ArrayList<>();
+    public static Client generateClient() {
         Random random = new Random();
 
-        for (int i = 0; i < numberOfClients; i++) {
-            String firstName = FIRST_NAMES[random.nextInt(FIRST_NAMES.length)];
-            String lastName = LAST_NAMES[random.nextInt(LAST_NAMES.length)];
-            String email = generateRandomEmail(firstName, lastName);
+        String firstName = FIRST_NAMES[random.nextInt(FIRST_NAMES.length)];
+        String lastName = LAST_NAMES[random.nextInt(LAST_NAMES.length)];
+        String email = generateRandomEmail(firstName, lastName);
 
-            Client client = new Client(firstName, lastName, email);
-            clients.add(client);
-        }
-
-        return clients;
+        return new Client(firstName, lastName, email);
     }
 
     private static String generateRandomEmail(String firstName, String lastName) {

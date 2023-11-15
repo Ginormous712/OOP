@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
+    private static int idCounter;
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
     private List<TourPackage> selectedPackages;
 
+    static {
+        idCounter = 1;
+    }
     public Client(String firstName, String lastName, String email) {
+        this.id = idCounter++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -42,11 +48,10 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", selectedPackages=" + selectedPackages +
-                '}';
+        return String.format("Client #%d\n" +
+                        "Name: %s %s\n" +
+                        "Email: %s\n" +
+                        "Selected Packages: %s",
+                id, firstName, lastName, email, selectedPackages);
     }
 }

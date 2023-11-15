@@ -27,6 +27,7 @@ public class TourAgency {
     public void displayClientInfo() {
         for (Client client : clients) {
             System.out.println(client);
+            System.out.println("---------------------------");
         }
     }
 

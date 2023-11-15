@@ -7,8 +7,8 @@ public class ConsoleUI {
     private TourManager tourManager;
     private TourAgency tourAgency;
 
-    public ConsoleUI(int tourPackagesNumber) {
-        initializeTourManager(tourPackagesNumber);
+    public ConsoleUI(int tourPackagesNumber, int clientsNumber) {
+        initializeTourManager(tourPackagesNumber, clientsNumber);
     }
 
     public void start() {
@@ -25,12 +25,48 @@ public class ConsoleUI {
                     displayTourPackages();
                     break;
                 case 2:
-                    displayClientsInfo();
+                    displaySortTypeMenu();
+                    int choiceSortType = getUserChoice(scanner);
+                    switch (choiceSortType) {
+                        case 1:
+                            tourManager.sortTourPackagesByPrice();
+                            tourAgency.displayTourPackages();
+                            break;
+                        case 2:
+                            tourManager.sortTourPackagesByDuration();
+                            tourAgency.displayTourPackages();
+                            break;
+                        case 3:
+                            tourManager.sortTourPackagesByCountry();
+                            tourAgency.displayTourPackages();
+                            break;
+                        case 4:
+                            tourManager.sortTourPackagesByTourType();
+                            tourAgency.displayTourPackages();
+                            break;
+                        case 5:
+                            tourManager.sortTourPackagesByTransportType();
+                            tourAgency.displayTourPackages();
+                            break;
+                        case 6:
+                            tourManager.sortTourPackagesByMealsType();
+                            tourAgency.displayTourPackages();
+                            break;
+                        case 7:
+                            System.out.println("Ok. Moving back to main menu.");
+                            //scanner.close();
+                            break;
+                        default:
+                            System.out.println("Wrong choice. Try again.");
+                    }
                     break;
                 case 3:
-                    selectTourPackage(scanner);
+                    displayClientsInfo();
                     break;
                 case 4:
+                    selectTourPackage(scanner);
+                    break;
+                case 5:
                     System.out.println("Thank you for using our services. Goodbye!");
                     scanner.close();
                     System.exit(0);
@@ -40,21 +76,38 @@ public class ConsoleUI {
             }
         }
     }
-    private void initializeTourManager(int tourPackagesNumber) {
+    private void initializeTourManager(int tourPackagesNumber, int clientsNumber) {
 
         this.tourManager = new TourManager();
         for (int i = 0; i < tourPackagesNumber; i++) {
             tourManager.addTourPackage(TourGenerator.generateRandomTour());
         }
         this.tourAgency = new TourAgency(tourManager);
+        for (int i = 0; i < clientsNumber; i++) {
+            Client client = ClientGenerator.generateClient();
+            tourAgency.addClient(client);
+        }
     }
 
     private void displayMainMenu() {
         System.out.println("\nMain menu:");
         System.out.println("1. View available tour packages");
-        System.out.println("2. View client information");
-        System.out.println("3. Choose a tour package");
-        System.out.println("4. Quit");
+        System.out.println("2. Sort available tour packages");
+        System.out.println("3. View client information");
+        System.out.println("4. Choose a tour package");
+        System.out.println("5. Quit");
+        System.out.print("Your choice: ");
+    }
+
+    private void displaySortTypeMenu() {
+        System.out.println("\n\tSort type menu:");
+        System.out.println("\t1. Price");
+        System.out.println("\t2. Duration");
+        System.out.println("\t3. Countries (alphabet order)");
+        System.out.println("\t4. Tour type");
+        System.out.println("\t5. Transport type");
+        System.out.println("\t6. Meals type");
+        System.out.println("\t7. Back to main menu");
         System.out.print("Your choice: ");
     }
 
@@ -86,10 +139,10 @@ public class ConsoleUI {
         if (clientIndex >= 0 && clientIndex < tourAgency.getClients().size()) {
             System.out.println("\nSelect a tour package for the client:");
             tourManager.displayTourPackages();
-            int packageIndex = getUserChoice(scanner) - 1;
+            int packageId = getUserChoice(scanner);
 
-            if (packageIndex >= 0 && packageIndex < tourManager.getTourPackages().size()) {
-                TourPackage selectedPackage = tourManager.getTourPackages().get(packageIndex);
+            if (packageId > 0 && packageId <= tourManager.getTourPackages().size()) {
+                TourPackage selectedPackage = tourManager.getTourPackageById(packageId);
                 tourAgency.selectTourPackage(tourAgency.getClients().get(clientIndex), selectedPackage);
                 System.out.println("The tour package was successfully selected for the client.");
             } else {
