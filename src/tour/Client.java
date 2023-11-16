@@ -46,12 +46,28 @@ public class Client {
         selectedPackages.remove(tourPackage);
     }
 
+    public String selectedPackagesId() {
+        if (selectedPackages.size() == 0) {
+            return "[NO TOUR PACKAGES]";
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        for (TourPackage tourPackage: selectedPackages) {
+            result.append(tourPackage.getId()).append(", ");
+            //result.concat(", ");
+        }
+
+        result.delete(result.length() - 2, result.length());
+
+        return String.format("[ %s ]", result.toString());
+    }
     @Override
     public String toString() {
         return String.format("Client #%d\n" +
                         "Name: %s %s\n" +
                         "Email: %s\n" +
                         "Selected Packages: %s",
-                id, firstName, lastName, email, selectedPackages);
+                id, firstName, lastName, email, selectedPackagesId());
     }
 }
