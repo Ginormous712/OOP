@@ -52,6 +52,10 @@ public class TourPackage {
         return price;
     }
 
+    public static void resetIdCounter() {
+        idCounter = 1;
+    }
+
     @Override
     public String toString() {
         return String.format("Tour Package #%d\n" +
